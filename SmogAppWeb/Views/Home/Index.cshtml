@@ -1,0 +1,27 @@
+﻿@model SmogAppWeb.Models.LocationModel
+@{
+    ViewBag.Title = "Pomiar";
+}
+@section Styles{
+    <link href="@Url.Content("~/Content/Index.css")" rel="stylesheet" type="text/css" />
+}
+
+<div>
+    <b><h1 style="margin-top:50px">Witamy!</h1></b>
+    <h2>Aby zobaczyć aktualne wskaźniki zanieczyszczenia w twojej okolicy, podaj swój adres zamieszkania lub miasto:</h2>
+    <br />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-centered">
+                @using (Html.BeginForm("Measurement", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_message = "Required" }))
+                {
+                    @Html.TextBoxFor(model => model.Address, new { @class = "input-md userInput" })
+                    <span class="field-validation-error errorMessage" data-valmsg-for="FirstName"
+                          data-valmsg-replace="true">@ViewBag.Message</span>
+                    <input type="submit" style="position: absolute; left: -9999px" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

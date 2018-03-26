@@ -1,0 +1,17 @@
+﻿#legendTable{
+    margin:auto;
+    width:100%;
+    max-width:700px;
+}
+#legendTable th{
+    font-size: 22px;
+    text-align:center;
+    background-color:#80CBC4;
+    
+}
+#legendTable td{
+    font-size: 18px;
+    text-align: center;
+    color: #ffffff;
+    text-shadow:2px 2px 2px black;
+}

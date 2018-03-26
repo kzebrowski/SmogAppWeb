@@ -1,0 +1,20 @@
+﻿body {
+    text-align: center;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.userInput{
+    width: 100%;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+.errorMessage{
+    color: red;
+    font-size: 15px;
+    padding-top:20px;
+    display: inline-block;
+}

@@ -1,0 +1,159 @@
+﻿@model SmogAppWeb.Models.MeasurementModel
+@{
+    ViewBag.Title = "Measurement";
+}
+@section Styles{
+    <link href="@Url.Content("~/Content/Measurement.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Table.css")" rel="stylesheet" type="text/css" />
+}
+
+<div>
+    <br/>
+    <h2 style="margin-bottom:40px">Nadajnik: @Html.DisplayFor(Model => Model.StationName)</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div id="aqiCircle" class="cont" data-pct="100">
+                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <text id="text" x="50%" y="50%" text-anchor="middle" stroke-width="2px" dy=".3em"></text>
+                    </svg>
+                    <label for="aqiCircle" class="circleLabel">Poziom zanieczyszczenia powietrza</label>
+                </div>
+            </div>
+        </div>
+        <div id="row" class="row">
+            <h2>Pozostałe wskaźniki</h2>
+            <br/>
+            <div class="col-md-6 col-sm-6">
+                <div id="pm25Circle" class="cont" data-pct="100">
+                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <text id="text" x="50%" y="50%" text-anchor="middle" stroke-width="2px" dy=".3em"></text>
+                    </svg>
+                    <label for="pm25Circle" class="circleLabel">PM2.5</label>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div id="pm100Circle" class="cont" data-pct="100">
+                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <text id="text" x="50%" y="50%" text-anchor="middle" stroke-width="2px" dy=".3em"></text>
+                    </svg>
+                    <label for="pm10Circle" class="circleLabel">PM10</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div id="no2Circle" class="cont" data-pct="100">
+                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <text id="text" x="50%" y="50%" text-anchor="middle" stroke-width="2px" dy=".3em"></text>
+                    </svg>
+                    <label for="no2Circle" class="circleLabel">NO2</label>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div id="ozoneCircle" class="cont" data-pct="100">
+                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <text id="text" x="50%" y="50%" text-anchor="middle" stroke-width="2px" dy=".3em"></text>
+                    </svg>
+                    <label for="ozoneCircle" class="circleLabel">O3</label>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="row">
+            <h2>Legenda</h2>
+            <br/>
+
+            <table id="legendTable">
+                <tr>
+                    <th>Wartość</th>
+                    <th>Jakość powietrza</th>
+                </tr>
+                <tr id="row1">
+                    <td>0-16%</td>
+                    <td>dobra</td>
+                </tr>
+                <tr id="row2">
+                    <td>17-33%</td>
+                    <td>średnia</td>
+                </tr>
+                <tr id="row3">
+                    <td>34-50%</td>
+                    <td>słaba</td>
+                </tr>
+                <tr id="row4">
+                    <td>51-66%</td>
+                    <td>zła</td>
+                </tr>
+                <tr id="row5">
+                    <td>67-99%</td>
+                    <td>bardzo zła</td>
+                </tr>
+                <tr style="background-color:#3E2723">
+                    <td>100% i więcej</td>
+                    <td>zagrożenie dla życia</td>
+                </tr>
+            </table>
+        </div>
+        <div class="row" id="row">
+            <h2>Szczegóły pomiaru</h2>
+            <br/>
+            <div class="col-md-6">
+                <ul>
+                    <li>
+                        Wprowadzony adres: @Html.Raw(Model.Location.Address)
+                    </li>
+                    <li>
+                        Nazwa nadajnika: @Html.Raw(Model.StationName)
+                    </li>
+                    <li>
+                        Czas pomiaru: @Html.Raw(Model.MesureTime)
+                    </li>
+                    <li>
+                        AQI: @Html.Raw(Model.Aqi)
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li>
+                        PM2.5 AQI: @Html.Raw(Model.Pm25)
+                    </li>
+                    <li>
+                        PM10 AQI: @Html.Raw(Model.Pm100)
+                    </li>
+                    <li>
+                        Ozon AQI: @Html.Raw(Model.Ozone)
+                    </li>
+                    <li>
+                        Dwutlenek azotu AQI: @Html.Raw(Model.NitroDioxide)
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+            <script type="text/javascript" src="@Url.Content("~/Scripts/progressBarScripts.js")"></script>
+            <script type="text/javascript">
+                var circles = new Map();
+
+                circles.set("pm25Circle", parseFloat((@Html.Raw(Model.Pm25)).toString().replace(",",".")));
+                circles.set("pm100Circle", parseFloat((@Html.Raw(Model.Pm100)).toString().replace(",",".")));
+                circles.set("ozoneCircle", parseFloat((@Html.Raw(Model.Ozone)).toString().replace(",",".")));
+                circles.set("no2Circle", parseFloat((@Html.Raw(Model.NitroDioxide)).toString().replace(",",".")));
+                circles.set("aqiCircle", parseFloat((@Html.Raw(Model.Aqi)).toString().replace(",",".")));
+
+                var ColorMap = new Map([[50, "#43A047"], [100, "#FDD835"], [150, "#FF9800"], [200, "#EF5350"], [300, "#B71C1C"]]);
+            </script>
+            <script type="text/javascript" src="@Url.Content("~/Scripts/TableScript.js")"></script>
+
+    </div>
+</div>
