@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -38,8 +39,8 @@ namespace SmogAppWeb.Models.Parsers
                 throw new FormatException();
                 return;
             }
-            lat = lat.Replace(".", ",");
-            location.Latitude = Double.Parse(lat);
+            
+            location.Latitude = Double.Parse(lat, new CultureInfo("en-US"));
         }
 
         private void SetLocationLongtitude()
@@ -50,8 +51,8 @@ namespace SmogAppWeb.Models.Parsers
                 throw new FormatException();
                 return;
             }
-            lng = lng.Replace(".", ",");
-            location.Longtitude = Double.Parse(lng);
+            
+            location.Longtitude = Double.Parse(lng, new CultureInfo("en-US"));
         }
 
         private void SetLocationAddress()

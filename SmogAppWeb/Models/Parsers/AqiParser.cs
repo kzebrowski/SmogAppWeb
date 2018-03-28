@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -50,14 +51,8 @@ namespace SmogAppWeb.Models.Parsers
         public void ParseAqi()
         {
             String aqi = (string)json.SelectToken("data.aqi");
-            aqi = aqi.Replace(".", ",");
-            double numAqi;
-            if (double.TryParse(aqi, out numAqi))
-            {
-                measurement.Aqi = numAqi;
-                return;
-            }
-            measurement.Aqi = -1;
+            
+            measurement.Aqi = parseStringToDecimal(aqi);
         }
 
         private void ParseMesureTime()
@@ -74,61 +69,39 @@ namespace SmogAppWeb.Models.Parsers
         private void ParseNitroDioxide()
         {
             String no2 = (string)json.SelectToken("data.iaqi.no2.v");
-            if (no2 != null && no2.IndexOf(".") != -1)
-                no2 = no2.Replace(".", ",");
 
-            double numNo2;
-            if (double.TryParse(no2, out numNo2))
-            {
-                measurement.NitroDioxide = numNo2;
-                return;
-            }
-            measurement.NitroDioxide = -1;
+            measurement.NitroDioxide = parseStringToDecimal(no2); 
         }
 
         private void ParsePm100()
         {
             String pm100 = (string)json.SelectToken("data.iaqi.pm10.v");
-            if (pm100 != null && pm100.IndexOf(".") != -1)
-                pm100 = pm100.Replace(".", ",");
 
-            double numPm100;
-            if (double.TryParse(pm100, out numPm100))
-            {
-                measurement.Pm100 = numPm100;
-                return;
-            }
-            measurement.Pm100 = -1;
+            measurement.Pm100 = parseStringToDecimal(pm100); 
         }
 
         private void ParsePm25()
         {
             String pm25 = (string)json.SelectToken("data.iaqi.pm25.v");
-            if (pm25 != null && pm25.IndexOf(".") != -1)
-                pm25 = pm25.Replace(".", ",");
 
-            double numPm25;
-            if (double.TryParse(pm25, out numPm25))
-            {
-                measurement.Pm25 = numPm25;
-                return;
-            }
-            measurement.Pm25 = -1;
+            measurement.Pm25 = parseStringToDecimal(pm25);
         }
 
         private void ParseOzone()
         {
             String o3 = (string)json.SelectToken("data.iaqi.o3.v");
-            if (o3 != null && o3.IndexOf(".") != -1)
-                o3 = o3.Replace(".", ",");
 
-            double numO3;
-            if (double.TryParse(o3, out numO3))
+            measurement.Ozone = parseStringToDecimal(o3);
+        }
+
+        private double parseStringToDecimal(String input)
+        {
+            double tmp;
+            if (double.TryParse(input, NumberStyles.Any, new CultureInfo("en-US"), out tmp))
             {
-                measurement.Ozone = numO3;
-                return;
+                return tmp;
             }
-            measurement.Ozone = -1;
+            return -1;
         }
     }
 }
