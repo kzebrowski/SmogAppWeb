@@ -25,7 +25,7 @@ namespace SmogAppWeb.Models.Parsers
             this.measurement = new MeasurementModel();
             measurement.Location = location;
 
-            SetMeasurementParameters();
+            SetMeasurementParameters(); //while no data parameter will be set to -1 
             return measurement;
         }
 

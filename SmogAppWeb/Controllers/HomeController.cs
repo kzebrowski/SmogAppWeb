@@ -37,7 +37,7 @@ namespace SmogAppWeb.Controllers
             {
                 ViewBag.Message = "Pole adresu nie może być puste.";
                 return View("Index");
-            };
+            }
 
             GeocodingParser gp = new GeocodingParser();
             LocationModel loc;
