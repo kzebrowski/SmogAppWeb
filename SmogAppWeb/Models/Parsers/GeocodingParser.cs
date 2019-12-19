@@ -11,7 +11,7 @@ namespace SmogAppWeb.Models.Parsers
 {
     public class GeocodingParser
     {
-        private static String ApiKey = "AIzaSyBTzON4e8Wx3rsb_KcarsjeVgtMxPdOGg8";
+        private static String ApiKey = "AIzaSyAYtRu-3XGoh7zaqWBlO9sb3lFz3lO7RZA";
         private JObject json;
         private LocationModel location;
 
